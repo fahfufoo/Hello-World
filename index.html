@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AngularJS File Upoad Example with $http and FormData</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+
+ <style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+</style>
+
+<body ng-app="myApp" ng-controller="MainController">
+     <div >
+        <input type="file" ng-file-select="fileSelected($files)" accept="'image/*'">
+        <input type="submit" ng-click="uploadFiles()" value="Upload" />
+        <span id = "status"></span>
+      <table ng-repeat="x in res">
+        <th>id</th>
+        <th>score</th>
+        <th>grade</th>
+		<tr ng-repeat="y in x.student">
+       		<td >{{y.id}}</td>
+       		<td >{{y.score}}</td>
+       		<td >{{y.grade}}</td>
+       	</tr>	
+		</table>
+    </div>
+</body>
+<script>
+var app = angular.module("myApp", []);
+app.controller("MainController", function($scope,$http) {
+      $scope.uploadFiles = function () {
+     	$scope.fileSelected = function(files) {
+     if (files && files.length) {
+        $scope.file = files[0];
+     }
+ }
+      var request = {
+          method: 'POST',
+          url: '/upload',
+          data: $scope.file,
+          headers: {
+            'Content-Type': undefined
+          }
+      };
+   // SEND THE FILES.
+    // $http(request).then(function (response){
+    //    $scope.res = response.data; 
+    //  },function (response){})
+     
+
+
+
+        $http(request).success(function (response) {
+          $scope.res = response;
+       })
+      .errorr(function () {});
+
+       }
+});
+      
+   
+
+</script>
+</html>
