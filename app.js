@@ -23,6 +23,7 @@ var upload = multer({ storage : storage }).array('userFile',2);
 
 app.get('/',function(req,res){
       res.sendFile(__dirname + "/index.html");
+      console.log(__dirname);
 });
 q=0;
 w=0;
