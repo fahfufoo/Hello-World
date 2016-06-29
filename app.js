@@ -25,6 +25,11 @@ app.get('/',function(req,res){
       res.sendFile(__dirname + "/index.html");
       console.log(__dirname);
 });
+
+app.get('/script',function(req,res){
+      res.sendFile(__dirname + "/script.js");
+      console.log(__dirname);
+});
 q=0;
 w=0;
 var id;
