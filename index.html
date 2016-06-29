@@ -2,21 +2,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AngularJS File Upoad Example with $http and FormData</title>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  <script src="http://yourjavascript.com/06712966214/script.js"></script>
+  <script type='text/javascript' src="script.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
- <style>
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: left;
-}
-</style>
 
 <body ng-app="myApp" ng-controller="MainController">
      <div >
@@ -35,29 +24,5 @@ th, td {
 		</table>
     </div>
 </body>
-<script>
-var app = angular.module("myApp", []);
-app.controller("MainController", function($scope,$http) {
-      $scope.uploadFiles = function () {
-      $scope.fileSelected = function(files) {
-     if (files && files.length) {
-        $scope.file = files[0];
-     }
- }
-      var request = {
-          method: 'POST',
-          url: '/upload',
-          data: $scope.file,
-          headers: {
-            'Content-Type': undefined
-          }
-      };
-    $http(request).then(function (response){
-       $scope.res = response.data; 
-     },function (response){})
 
-       }
-});
-      
-</script>
 </html>
