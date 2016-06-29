@@ -51,22 +51,20 @@ app.controller("MainController", function($scope,$http) {
           }
       };
    // SEND THE FILES.
-    // $http(request).then(function (response){
-    //    $scope.res = response.data; 
-    //  },function (response){})
+    $http(request).then(function (response){
+       $scope.res = response.data; 
+     },function (response){})
      
 
 
 
-        $http(request).success(function (response) {
-          $scope.res = response;
-       })
-      .errorr(function () {});
+      //   $http(request).success(function (response) {
+      //     $scope.res = response;
+      //  })
+      // .errorr(function () {});
 
        }
 });
       
-   
-
 </script>
 </html>
