@@ -1,8 +1,6 @@
-// 555
 var fs = require("fs");
 var contents = fs.readFileSync("user.json");
 var jsonContent = JSON.parse(contents);
-
 var express =   require("express");
 var bodyParser =    require("body-parser");
 var multer  =   require('multer');
@@ -30,13 +28,21 @@ app.get('/script',function(req,res){
       res.sendFile(__dirname + "/script.js");
       console.log(__dirname);
 });
+
+app.get('/script.js',function(req,res){
+      res.sendFile(__dirname + "/script.js");
+});
+
+app.get('/style.css',function(req,res){
+      res.sendFile(__dirname + "/style.css");
+});
+
 q=0;
 w=0;
 var id;
+
 app.post('/upload',function(req,res){
     upload(req,res,function(err) {
-        //console.log(req.body);
-        //console.log(req.files);
         if(err) {
             return res.end("Error uploading file.");
         }
@@ -71,89 +77,12 @@ app.post('/upload',function(req,res){
         }//end for  
       w++;
       });//for each
-        // res.end(JSON.stringify(jsonContent, null, 2));
-       // res.end(jsonContent);
         res.json(jsonContent);
         res.end();
-
-
-        //res.end("File is uploaded");
     });
 });
 
 app.listen(3000,function(){
     console.log("Working on port 3000");
 });
-
-// var fs = require("fs");
-// var contents = fs.readFileSync("user.json");
-// var jsonContent = JSON.parse(contents);
-// var express =   require("express");
-// var multer  =   require('multer');
-// var app =  express();
-// var json_tb = require('json-table');
-
-// var uploadfilename;
-
-// var storage =   multer.diskStorage({
-//    destination: function (req, file, callback) {
-//      callback(null, './uploads');
-//    },
-//    filename: function (req, file, callback) {
-//     uploadfilename=file.fieldname + '-' + Date.now();
-//      callback(null,uploadfilename);
-//    }
-// });
-
-// var upload = multer({ storage : storage}).single('userPhoto');
-
-// app.get('/',function(req,res){
-//        res.sendFile(__dirname + "/index.html");
-// });
-// q=0;
-// w=0;
-// var id;
-// app.post('/api/File',function(req,res){
-//      upload(req,res,function(err) {
-//         if(err) {
-//            return res.end("Error uploading file.");
-//         }
-//         if(typeof req !== 'undefined') XLSX = require('xlsx');
-//         var workbook = XLSX.readFile('score.xlsx');
-//         var sheet_name_list = workbook.SheetNames;
-//         sheet_name_list.forEach(function(y){ 
-//           var worksheet = workbook.Sheets[y];
-//           jsonContent[w]={"SheetNo":y,student:{}};
-//           q=0;
-//           for (z in worksheet ) {
-//             if(z=='!ref')continue;    
-//             if(z[0]=='A')
-//             {
-//              id=worksheet[z].v;
-//             }
-//             else
-//             {
-//               score=worksheet[z].v ;
-//               if(score>100||score<0)grade='';
-//               else if(score>=80)grade = 'A';
-//               else if(score>=70)grade='B';
-//               else if(score>=60)grade='C';
-//               else if(score>=50)grade='D';
-//               else grade='F';
-//               jsonContent[w].student[id]={"score": score,"grade":grade};
-//               q++;
-//             }
-          
-//         }//end for  
-//       w++;
-//       });//for each
-//         res.write(JSON.stringify(jsonContent, null, 2));
-//       res.end();
-//    });//end upload
-    
-// });//end app.post
-
-// app.listen(3000,function(){
-//      console.log("Working on port 3000");
-// });
 
