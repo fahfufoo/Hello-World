@@ -3,6 +3,7 @@
 <head>
   <title>AngularJS File Upoad Example with $http and FormData</title>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="http://yourjavascript.com/06712966214/script.js"></script>
 </head>
 
  <style>
@@ -37,7 +38,7 @@ th, td {
 var app = angular.module("myApp", []);
 app.controller("MainController", function($scope,$http) {
       $scope.uploadFiles = function () {
-     	$scope.fileSelected = function(files) {
+      $scope.fileSelected = function(files) {
      if (files && files.length) {
         $scope.file = files[0];
      }
@@ -50,18 +51,9 @@ app.controller("MainController", function($scope,$http) {
             'Content-Type': undefined
           }
       };
-   // SEND THE FILES.
     $http(request).then(function (response){
        $scope.res = response.data; 
      },function (response){})
-     
-
-
-
-      //   $http(request).success(function (response) {
-      //     $scope.res = response;
-      //  })
-      // .errorr(function () {});
 
        }
 });
