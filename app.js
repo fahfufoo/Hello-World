@@ -5,6 +5,7 @@ var express =   require("express");
 var bodyParser =    require("body-parser");
 var multer  =   require('multer');
 var app =   express();
+
 app.use(bodyParser.json());
 
 var uploadfilename;
@@ -21,12 +22,7 @@ var upload = multer({ storage : storage }).array('userFile',2);
 
 app.get('/',function(req,res){
       res.sendFile(__dirname + "/index.html");
-      console.log(__dirname);
-});
-
-app.get('/script',function(req,res){
-      res.sendFile(__dirname + "/script.js");
-      console.log(__dirname);
+      
 });
 
 app.get('/script.js',function(req,res){
@@ -43,6 +39,7 @@ var id;
 
 app.post('/upload',function(req,res){
     upload(req,res,function(err) {
+
         if(err) {
             return res.end("Error uploading file.");
         }
@@ -50,6 +47,7 @@ app.post('/upload',function(req,res){
         if(typeof req !== 'undefined') XLSX = require('xlsx');
         var workbook = XLSX.readFile('score.xlsx');
         var sheet_name_list = workbook.SheetNames;
+       
         sheet_name_list.forEach(function(y){ 
           var worksheet = workbook.Sheets[y];
            jsonContent[w]={"SheetNo":y,student:{}};
@@ -85,4 +83,6 @@ app.post('/upload',function(req,res){
 app.listen(3000,function(){
     console.log("Working on port 3000");
 });
+
+
 
