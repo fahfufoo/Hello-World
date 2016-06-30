@@ -5,6 +5,7 @@ var express =   require("express");
 var bodyParser =    require("body-parser");
 var multer  =   require('multer');
 var app =   express();
+var cal = require('./calGrade.js');
 
 app.use(bodyParser.json());
 
@@ -39,7 +40,6 @@ var id;
 
 app.post('/upload',function(req,res){
     upload(req,res,function(err) {
-
         if(err) {
             return res.end("Error uploading file.");
         }
@@ -50,28 +50,20 @@ app.post('/upload',function(req,res){
        
         sheet_name_list.forEach(function(y){ 
           var worksheet = workbook.Sheets[y];
-           jsonContent[w]={"SheetNo":y,student:{}};
+          jsonContent[w]={"SheetNo":y,student:{}};
           q=0;
+          
           for (z in worksheet ) {
             if(z=='!ref')continue;    
-            if(z[0]=='A')
-            {
-             id=worksheet[z].v;
-            }
+            if(z[0]=='A'){id=worksheet[z].v;}
             else
             {
               score=worksheet[z].v ;
-              if(score>100||score<0)grade='';
-              else if(score>=80)grade = 'A';
-              else if(score>=70)grade='B';
-              else if(score>=60)grade='C';
-              else if(score>=50)grade='D';
-              else grade='F';
+              grade = cal.calGrade(score)
               jsonContent[w].student[q]={"id":id,"score":score,"grade":grade};
 
               q++;
             }
-          
         }//end for  
       w++;
       });//for each
@@ -83,6 +75,3 @@ app.post('/upload',function(req,res){
 app.listen(3000,function(){
     console.log("Working on port 3000");
 });
-
-
-
