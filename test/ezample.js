@@ -1,6 +1,5 @@
-var cal = require('C:/Users/anusorndev2/Desktop/Upload/calGrade.js');
+var cal = require('../calGrade.js');
 var test = require('unit.js');
-// var x = require('./calGrade.js');
 
 describe('Test function calculate Grade', function(){
 

@@ -16,10 +16,11 @@ var storage =   multer.diskStorage({
     callback(null, './uploads');
   },
   filename: function (req, file, callback) {
-    callback(null, file.fieldname + '-' + Date.now());
+    uploadfilename=file.fieldname + '-' + Date.now();
+     callback(null,uploadfilename);
   }
 });
-var upload = multer({ storage : storage }).array('userFile',2);
+var upload = multer({ storage : storage }).single('userFile');
 
 app.get('/',function(req,res){
       res.sendFile(__dirname + "/index.html");
@@ -39,13 +40,15 @@ w=0;
 var id;
 
 app.post('/upload',function(req,res){
+  // console.log(req.body.file);
     upload(req,res,function(err) {
         if(err) {
             return res.end("Error uploading file.");
         }
         w=0;
         if(typeof req !== 'undefined') XLSX = require('xlsx');
-        var workbook = XLSX.readFile('score.xlsx');
+
+        var workbook = XLSX.readFile('./uploads/'+uploadfilename);
         var sheet_name_list = workbook.SheetNames;
        
         sheet_name_list.forEach(function(y){ 
