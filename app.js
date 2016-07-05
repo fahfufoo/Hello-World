@@ -6,6 +6,7 @@ var bodyParser =    require("body-parser");
 var multer  =   require('multer');
 var app =   express();
 var cal = require('./calGrade.js');
+var path = require('path');
 
 app.use(bodyParser.json());
 
@@ -34,6 +35,22 @@ app.get('/script.js',function(req,res){
 app.get('/style.css',function(req,res){
       res.sendFile(__dirname + "/style.css");
 });
+
+
+app.get('/EikonWebUI.css',function(req,res){
+      res.sendFile(__dirname + "/EikonWebUI.css");
+});
+
+
+
+//app.use('/Upload', express.static(path.join(__dirname + '/Upload')));
+app.use('/css', express.static(path.join(__dirname + '/css')));
+app.use('/fonts', express.static(path.join(__dirname + '/fonts')));
+app.use('/js', express.static(path.join(__dirname + '/js')));
+
+// app.use('/staticFile', express.static(path.join(__dirname + '/staticFile')));
+
+
 
 q=0;
 w=0;
@@ -72,8 +89,9 @@ app.post('/upload',function(req,res){
       });//for each
         res.json(jsonContent);
         res.end();
+
     });
-});
+  });
 
 app.listen(3000,function(){
     console.log("Working on port 3000");
